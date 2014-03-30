@@ -41,7 +41,7 @@
         {
             echo "<msg>" . $message . "</msg>";
         }
-        else
+        else if($result == "S")
         {
             // at -> Account Type
             echo "<at>" . $accountType . "</at>";
