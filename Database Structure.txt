@@ -1,0 +1,34 @@
+peeveepee
+    users
+	achievements
+	    lifetime_longest
+		length
+		ts // timestamp
+		loc
+	    locations []
+		loc_name
+		    length
+		    ts
+        stats
+            lifetime_length
+            lifetime_event_count
+            lifetime_wins
+            lifetime_losses
+            location_stats []
+                loc_name
+                    loc_total_length
+                    loc_event_count
+                    loc_wins
+                    loc_losses
+    events
+        loc_id  (subcollection)
+            user_id
+            timestamp
+            length
+            user_tag
+    locations
+        _id
+        name
+        date_created
+        lat
+        lon
