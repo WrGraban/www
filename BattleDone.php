@@ -4,9 +4,7 @@
 
 	$connection = new MongoClient();
 
-    ////////////////
-    // POST data
-    ////////////////
+    
 
     // USED FOR TESTING
     ///////////////////
@@ -16,6 +14,9 @@
     //$result = $_GET['result'];
     //$loc_name = $_GET['loc_name'];
 
+    ////////////////
+    // POST data
+    ////////////////
     $id = $_POST['id'];
     $tag = $_POST['tag'];
     $length = floatval($_POST['length']);
@@ -26,6 +27,16 @@
 
     // Used by Achievement Checker to build the response xml
     $responseXml = "";
+
+    // For some reason Unity was not allowing me to submit a value of null to the opid field
+    // I had to HACK around it and send the string "null" which I will check for and convert
+    // to the actual value.  As an added note, "null" should be on the list of restricted names
+    $hasOpponent = true;
+
+    if($op_id == "null")
+    {
+        $hasOpponent = false;
+    }
 
 
     ////////////////
@@ -109,17 +120,20 @@
     $collection->update(array("_id" => $id), array('$inc' => $userStatsToMod));
     $collection->update(array("_id" => $id, "stats.location_stats.name" => $loc_name), array('$inc' => $locStatsToMod));
 
-    // Update the opponents array
-    $opponentFound = $collection->findOne(array("_id" => $id, "stats.opponents.name" => $op_id), array("_id" => true));
+    if($hasOpponent == true)
+    {
+        // Update the opponents array
+        $opponentFound = $collection->findOne(array("_id" => $id, "stats.opponents.name" => $op_id), array("_id" => true));
 
-    // Check for the special cases of 'new opponent'
-    if($opponentFound == null)
-    {
-        $collection->update(array("_id" => $id), array('$push' => array("stats.opponents" => array("name" => $op_id, "count" => 1))));
-    }
-    else
-    {
-        $collection->update(array("_id" => $id, "stats.opponents.name" => $op_id), array('$inc' => array('stats.opponents.$.count' => 1)));
+        // Check for the special cases of 'new opponent'
+        if($opponentFound == null)
+        {
+            $collection->update(array("_id" => $id), array('$push' => array("stats.opponents" => array("name" => $op_id, "count" => 1))));
+        }
+        else
+        {
+            $collection->update(array("_id" => $id, "stats.opponents.name" => $op_id), array('$inc' => array('stats.opponents.$.count' => 1)));
+        }
     }
 
     ////////////////

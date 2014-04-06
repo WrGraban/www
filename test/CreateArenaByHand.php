@@ -9,10 +9,10 @@
 	$lat = floatval($_POST['lat']);
 	$lon = floatval($_POST['lon']);
 */
-	$arena_name = "The Void";
-	$uid = "anonymous";
-	$lat = 23.806;
-	$lon = 11.288;
+	$arena_name = "Narnia";
+	$uid = "zesty";
+	$lat = 11.35;
+	$lon = 142.2;
 
 	$result = $collection->findOne(array("name" => $arena_name));
 
@@ -36,11 +36,11 @@
 
 		$collection->insert($doc);
 		//echo $doc['_id'];
-		echo "<root><result>Success</result><id>" . $doc['_id'] . "</id></root>";
+		echo "<r><res>S</res></r>";
 	}
 	else
 	{
-		echo "<root><result>Failure</result><message>That Arena name has already been taken.  Please try a different one.</message></root>";
+		echo "<r><res>F</res><msg>err_arenaExists</msg></root>";
 	}
 
 	$connection->close();

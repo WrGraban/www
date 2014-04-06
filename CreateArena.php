@@ -30,11 +30,11 @@
 
 		$collection->insert($doc);
 		//echo $doc['_id'];
-		echo "<root><result>Success</result><id>" . $doc['_id'] . "</id></root>";
+		echo "<r><res>S</res></r>";
 	}
 	else
 	{
-		echo "<root><result>Failure</result><message>That Arena name has already been taken.  Please try a different one.</message></root>";
+		echo "<r><res>F</res><msg>err_arenaExists</msg></r>";
 	}
 
 	$connection->close();

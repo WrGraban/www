@@ -7,7 +7,9 @@
         exit(1);
     }
 
-    // TODO: Check for reserved names and let the user know
+    // TODO: Check for reserved names and let the user know it cannot be taken
+    // null
+    // anonymous
     
     $collection = $connection->selectCollection("peeveepee", "users");
     $tag = $_POST['tag'];
