@@ -26,7 +26,7 @@
 		////////// LIFETIME LONGEST
 		if($lifetimeStats['stats']['lifetime_highest_length'] < $length)
 		{
-			echo "<ach><tit>Lifetime Longest</tit><msg>";
+			echo "<ach><tit>ach_lifeLonTit</tit><msg>";
 
 			$valuesToSet['stats.lifetime_highest_length'] = $length;
 
@@ -40,7 +40,7 @@
 			// Check to see if it was the first time they got this achievement
 			if($achievementChecker == null)
 			{
-				echo "This is your first time getting this achievement.  Congratulations!</msg>";
+				echo "ach_first</msg>";
 
 				$data = array(
 					"name" => "Lifetime Longest",
@@ -56,10 +56,19 @@
 				// SNEAKY: Since findOne only returns a single doc, i know that the timestamp i'm looking for is at index 0
 				$date = $achievementChecker['achievements']['lifetime'][0]['ts']->sec;
 
+				/*
 				echo "On " . date('l', $date) . " the " . date('jS', $date) . " of " . date('F, Y', $date) . " you battled at " .
 					$achievementChecker['achievements']['lifetime'][0]['loc'] . " for " .
 					$achievementChecker['achievements']['lifetime'][0]['length'] . " seconds.  But today you have beat " .
 					"that score!  Congratulations!!</msg>";
+				*/
+				// I am going to have to shorten this as much as possible to lower data usage and allow localization
+				echo 'ach_lifeLon</msg>';
+				echo '<data>';
+				echo '<date>' . date('Y-M-d h:i:s', $date) . '</date>';
+				echo '<loc>' . $achievementChecker['achievements']['lifetime'][0]['loc'] . '</loc>';
+				echo '<len>' . $achievementChecker['achievements']['lifetime'][0]['length'] . '</len>';
+				echo '</data>';
 
 				$newValues = array(
 					"name" => "Lifetime Longest",
@@ -89,7 +98,7 @@
 
 		if($locationStats['stats']['location_stats'][0]['loc_highest_length'] < $length)
 		{
-			echo "<ach><tit>Location Longest</tit><msg>";
+			echo "<ach><tit>ach_locLonTit</tit><msg>";
 
 			$achievementChecker = $collection->findOne(
 				array("_id" => $id, "achievements.locations.loc" => $loc, "achievements.locations.name" => "Location Longest"), 
@@ -98,7 +107,7 @@
 
 			if($achievementChecker == null)
 			{
-				echo "This is your first time getting this achievement at this location.  Congratulations!</msg>";
+				echo "ach_locFirst</msg>";
 
 				$data = array(
 					"name" => "Location Longest",
@@ -111,11 +120,20 @@
 			}
 			else
 			{
-				$date = $achievementChecker['achievements']['locations'][0]['ts']->sec;
 
+				/*
 				echo "On " . date('l', $date) . " the " . date('jS', $date) . " of " . date('F, Y', $date) . " you battled " .
 					"here for " . $achievementChecker['achievements']['locations'][0]['length'] . " seconds.  But today you have beat " .
 					"that score!  Congratulations!!</msg>";
+				*/
+				echo 'ach_locLon</msg>';
+				$date = $achievementChecker['achievements']['locations'][0]['ts']->sec;
+
+				echo '<data>';
+				echo '<date>' . $date . '</date>';
+				echo '<len>' . $achievementChecker['achievements']['locations'][0]['length'] . '</len>';
+				echo '</data>';
+				
 
 				$data = array(
 					"name" => "Location Longest",

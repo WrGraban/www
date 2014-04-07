@@ -8,9 +8,12 @@
     $connection = new MongoClient();
     $collection = $connection->selectCollection("peeveepee", "users");
 
-    $test = $collection->findOne(array("_id" => "testy", "achievements.locations.loc" => "Narnia", "achievements.locations.name" => "Location Longest"), array('achievements.locations.$' => true));
+    $test = $collection->findOne(array("_id" => "testy"), array("achievements.lifetime" => true));
 
-    print_r($test);
+    $date = $test['achievements']['lifetime'][0]['ts']->sec;
+
+    
+    print_r(date(DATE_ISO8601, $date));
     //var_dump($achievementChecker);
 
     $connection->close();
