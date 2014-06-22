@@ -9,10 +9,10 @@
 	$lat = floatval($_POST['lat']);
 	$lon = floatval($_POST['lon']);
 */
-	$arena_name = "Narnia";
+	$arena_name = "The Void";
 	$uid = "zesty";
-	$lat = 11.35;
-	$lon = 142.2;
+	$lat = 23.806;
+	$lon = 11.288;
 
 	$result = $collection->findOne(array("name" => $arena_name));
 

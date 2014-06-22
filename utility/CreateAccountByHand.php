@@ -29,7 +29,7 @@
         $newDoc = array(
             "_id" => $newID,
             "tag" => $tag,
-            "account_type" => "Tester", // HACK
+            "account_type" => "Group", // HACK
             "date_created" => date("Y-m-d"),
             "achievements" => array(
                 "lifetime" => array(),

@@ -130,7 +130,7 @@
 				$date = $achievementChecker['achievements']['locations'][0]['ts']->sec;
 
 				echo '<data>';
-				echo '<date>' . $date . '</date>';
+				echo '<date>' . date('Y-M-d h:i:s', $date) . '</date>';
 				echo '<len>' . $achievementChecker['achievements']['locations'][0]['length'] . '</len>';
 				echo '</data>';
 				

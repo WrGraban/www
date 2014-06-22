@@ -19,9 +19,9 @@
     ////////////////
     $id = $_POST['id'];
     $tag = $_POST['tag'];
-    $length = floatval($_POST['length']);
-    $result = $_POST['result'];
-    $loc_name = $_POST['loc_name'];
+    $length = floatval($_POST['len']);
+    $result = $_POST['res'];
+    $loc_name = $_POST['lname'];
     $op_id = $_POST['opid'];
     $isAnonBattle = $_POST['isanon'];
 
@@ -141,19 +141,19 @@
     ////////////////
     $collection = $connection->selectCollection("peeveepee", "locations");
 
-    $locDoc = $collection->findOne(array(
-        "name" => $loc_name
-    ));
-
-    //echo $locDoc;
-
+    // Increment the event count and the total length
     $locValuesToMod = array(
         "total_event_count" => 1,
         "total_length" => $length
     );
 
-    // Update the total event count
+    // Update the entry
     $collection->update(array("name" => $loc_name), array('$inc' => $locValuesToMod));
+
+    // Checking for unique gladiators
+    $locDoc = $collection->findOne(array(
+        "name" => $loc_name
+    ));
 
     $found = false;
 
