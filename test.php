@@ -1,20 +1,37 @@
 <?php
-
+    include('./Stats/GetAnonymousStatistic.php');
     //phpinfo();
-    //$connection = new Mongo();
-    
     //echo $connection;
     
     $connection = new MongoClient();
     $collection = $connection->selectCollection("peeveepee", "users");
 
-    $test = $collection->findOne(array("_id" => "testy"), array("achievements.lifetime" => true));
+    $statArray = [
+            "statAnon_totalEvents",
+            "statAnon_totalLength",
+            "statAnon_win",
+            "statAnon_los",
+            "statAnon_tie"
+        ];
 
-    $date = $test['achievements']['lifetime'][0]['ts']->sec;
-
-    
-    print_r(date(DATE_ISO8601, $date));
-    //var_dump($achievementChecker);
+    $stat = $statArray[rand(0, count($statArray) - 1)];
+    echo BuildAnonXML($stat, $connection);
 
     $connection->close();
+    
+
+    //echo rand(0, 1);
+/*
+    $arr = 1;
+    test($arr);
+
+    function test($param)
+    {
+        while(count($param) != 0)
+        {
+            $item = array_pop($param);
+            echo $item;
+        }
+    }*/
+
 ?>

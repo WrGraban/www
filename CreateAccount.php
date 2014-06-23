@@ -42,7 +42,8 @@
                 "lifetime_ties" => 0,
                 "location_stats" => array(),
                 "opponents" => array()
-            )
+            ),
+            "last_stat" => ""
         );
         
         $collection->insert($newDoc);

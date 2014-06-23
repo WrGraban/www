@@ -15,7 +15,7 @@
     $id = $_POST['id'];
     $pass = $_POST['pass'];
     
-    $doc = $collection->findOne(array("_id" => $id), array("pass" => true, "account_type" => true));
+    $doc = $collection->findOne(array("_id" => $id), array("pass" => true, "account_type" => true, "tag" => true));
     
     if($doc == null)
     {
@@ -23,7 +23,7 @@
     }
     else if($doc['pass'] == $pass)
     {
-        BuildResponseXml("S", null, $doc['account_type']);
+        BuildResponseXml("S", null, $doc['account_type'], $doc['tag']);
     }
     else
     {
@@ -32,7 +32,7 @@
     
     $connection->close();
     
-    function BuildResponseXml($result, $message, $accountType)
+    function BuildResponseXml($result, $message, $accountType, $tag)
     {
         echo "<r>";
         echo "<res>" . $result . "</res>";
@@ -45,6 +45,7 @@
         {
             // at -> Account Type
             echo "<at>" . $accountType . "</at>";
+            echo "<tag>" . $tag . "</tag>";
         }
         
         echo "</r>";

@@ -33,6 +33,10 @@
 
     $doc = $collection->findOne(array("_id" => $id), array("_id" => false, $query => true));
     $subStat = substr($query, strpos($query, '.') + 1);
+
+    echo '<r>';
+    echo '<msg>'
+    echo '</r>';
     echo $doc['stats'][$subStat];
 
     $connection->close();
