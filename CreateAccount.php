@@ -1,4 +1,6 @@
 <?php
+    include('./utility/DocumentMaker.php');
+
     $connection = new MongoClient();
     
     if($connection == null)
@@ -21,32 +23,12 @@
     
     if($doc == null)
     {
-        // The tag is free!
-        $newDoc = array(
-            "_id" => $newID,
-            "tag" => $tag,
-            "account_type" => "Free", // HACK
-            "date_created" => date("Y-m-d"),
-            "achievements" => array(
-                "lifetime" => array(),
-                "locations" => array()
-            ),
-            "email" => $email,
-            "pass" => $hashedPass,
-            "stats" => array(
-                "lifetime_event_count" => 0,
-                "lifetime_event_length" => 0,
-                "lifetime_highest_length" => 0,
-                "lifetime_wins" => 0,
-                "lifetime_losses" => 0,
-                "lifetime_ties" => 0,
-                "location_stats" => array(),
-                "opponents" => array()
-            ),
-            "last_stat" => ""
-        );
-        
-        $collection->insert($newDoc);
+        // Add the user
+        $collection->insert(GetUserDoc($newID, $tag, $email, $hashedPass));
+
+        // Add the stats for the specific user
+        $collection = $connection->selectCollection('peeveepee', 'stats');
+        $collection->insert(GetStatsDoc($newID));
         
         BuildResponseXml("S", null);
     }

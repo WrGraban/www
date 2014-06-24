@@ -1,5 +1,5 @@
 <?php
-    include('./Stats/GetAnonymousStatistic.php');
+    include('./Stats/GetLifetimeLocationStat.php');
     //phpinfo();
     //echo $connection;
     
@@ -15,7 +15,7 @@
         ];
 
     $stat = $statArray[rand(0, count($statArray) - 1)];
-    echo BuildAnonXML($stat, $connection);
+    echo BuildLifeLocationStatXML("statLiLo_tl", "zesty", "Narnia", $connection);
 
     $connection->close();
     

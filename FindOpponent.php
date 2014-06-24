@@ -9,7 +9,7 @@
     //$loc_name = $_GET['name'];
     //$user_id = $_GET['uid'];
 
-	$collection = $connection->selectCollection("peeveepee", "events." . $loc_name);
+	$collection = $connection->selectCollection("peeveepee", "events");
 
     $curson = null;
 
@@ -19,7 +19,10 @@
     {
         $cursor = $collection->find(
             // query
-            array("user_id" => array('$ne' => $user_id)),
+            array(
+                "user_id" => array('$ne' => $user_id),
+                "loc_name" => $loc_name
+            ),
             
             // fields to return
             array(

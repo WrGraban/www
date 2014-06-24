@@ -1,4 +1,5 @@
 <?php
+	include('./utility/DocumentMaker.php');
 
 	$connection = new MongoClient();
     $collection = $connection->selectCollection("peeveepee", "locations");
@@ -12,6 +13,7 @@
 
 	if($result == null)
 	{
+		/*
 		// Insert into locations
 		$doc = array(
 			"name" => $arena_name,
@@ -26,10 +28,11 @@
 				"lon" => $lon
 			)
 		);
+		*/
 
+		// Insert the arena
+		$collection->insert(GetLocationDoc($uid, $arena_name, $lat, $lon));
 
-		$collection->insert($doc);
-		//echo $doc['_id'];
 		echo "<r><res>S</res></r>";
 	}
 	else

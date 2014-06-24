@@ -12,28 +12,25 @@
 
 		$xmlReturn = '<r><msg>' . $statType . '</msg><data>';
 		$collection = $connection->selectCollection('peeveepee', 'users');
-		$name; $query;
+		$name = "stat";
+		$query;
 
 		switch($statType)
 		{
-		case "statAnon_totalEvents":
-			$name = "evt_total";
+		case "statAn_te":
 			$query = 'stats.lifetime_event_count';
 			break;
-		case "statAnon_totalLength":
-			$name = "total_len";
+		case "statAn_tl":
+			$name = "human_time";
 			$query = 'stats.lifetime_event_length';
 			break;
-		case "statAnon_win":
-			$name = "win";
+		case "statAn_win":
 			$query = 'stats.lifetime_wins';
 			break;
-		case "statAnon_los":
-			$name = "los";
+		case "statAn_los":
 			$query = 'stats.lifetime_losses';
 			break;
-		case "statAnon_tie":
-			$name = "tie";
+		case "statAn_tie":
 			$query = 'stats.lifetime_ties';
 			break;
 		}

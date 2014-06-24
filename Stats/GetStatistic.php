@@ -1,46 +1,45 @@
 <?php
-	include("GetAnonymousStatistic.php");
+	include('GetAnonymousStatistic.php');
+	include('GetLifetimeStat.php');
+	include('GetLifetimeLocationStat.php');
 
 	$connection = new MongoClient();
-    $collection = $connection->selectCollection("peeveepee", "users");
+    $collection = $connection->selectCollection('peeveepee', 'users');
 
     $id = $_POST['id'];
     $loc = $_POST['loc'];
-    $isAnon = $_POST['isanon'];
+    /////////////////
+	/// Values:
+	/// 0	-	Anonymous
+	/// 1	-	Lifetime
+	/// 2	-	LifetimeLocation
+	/// 3	-	Location
+    $statType = '2';//$_POST['type'];
+    //////////////////
+    $stat = $_POST['stat'];
 
-    $isLocStat = rand(0, 1);
+    // HACK: Testing user stats
+    $isLocStat = 1;// rand(0, 1);
 
     // Declare the variable that will hold all of the possible
     $statArray;
 
-    if($isAnon == "1")
-    {
-    	///////////////
-    	// Anonymous stat
-    	$statArray = [
-    		"statAnon_totalEvents",
-    		"statAnon_totalLength",
-    		"statAnon_win",
-    		"statAnon_los",
-    		"statAnon_tie"
-    	];
+    $retXml = '';
 
-    	$stat = $statArray[rand(0, count($statArray) - 1)];
-    	echo BuildAnonXML($stat, $connection);
-    }
-    else
+    switch($statType)
     {
-    	if($isLocStat == 1)
-    	{
-    		////////////////////
-    		// Location Stat
-    	}
-    	else
-    	{
-    		////////////////////
-    		// User Stat
-    	}
+    case '0':
+    	$retXml = BuildAnonXML($stat, $connection);
+    	break;
+    case '1':
+    	$retXml = BuildUserStatXML($stat, $id, $connection);
+    	break;
+    case '2':
+    	$retXml = BuildLifeLocationStatXML($stat, $id, $loc, $connection);
+    	break;
     }
+
+    echo $retXml;
 
     $connection->close();
 

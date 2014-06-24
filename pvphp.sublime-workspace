@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"oppon",
+				"opponentFound"
+			],
+			[
+				"user",
+				"userStatsToMod"
+			],
+			[
+				"emp",
+				"emptyLocStats"
+			],
+			[
+				"ret",
+				"retXml"
+			],
+			[
+				"is",
+				"is_array"
+			],
+			[
 				"Ac",
 				"AchievementData"
 			]
@@ -15,15 +35,15 @@
 			"file": "CreateAccount.php",
 			"settings":
 			{
-				"buffer_size": 1826,
+				"buffer_size": 1307,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Stats/AchievementChecker.php",
+			"file": "CreateArena.php",
 			"settings":
 			{
-				"buffer_size": 6253,
+				"buffer_size": 922,
 				"line_ending": "Windows"
 			}
 		},
@@ -31,47 +51,15 @@
 			"file": "FindOpponent.php",
 			"settings":
 			{
-				"buffer_size": 2392,
+				"buffer_size": 2450,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "utility/DeleteUser.php",
+			"file": "utility/SetupNewDatabase.php",
 			"settings":
 			{
-				"buffer_size": 78,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "utility/CreateArenaByHand.php",
-			"settings":
-			{
-				"buffer_size": 915,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Stats/GetLifetimeLocationStat.php",
-			"settings":
-			{
-				"buffer_size": 1247,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Stats/GetLifetimeStat.php",
-			"settings":
-			{
-				"buffer_size": 923,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "utility/CreateAccountByHand.php",
-			"settings":
-			{
-				"buffer_size": 2089,
+				"buffer_size": 1338,
 				"line_ending": "Windows"
 			}
 		},
@@ -79,7 +67,15 @@
 			"file": "BattleDone.php",
 			"settings":
 			{
-				"buffer_size": 5789,
+				"buffer_size": 8241,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Database Structure.txt",
+			"settings":
+			{
+				"buffer_size": 738,
 				"line_ending": "Windows"
 			}
 		}
@@ -119,6 +115,25 @@
 	},
 	"file_history":
 	[
+		"/C/wamp/www/Stats/AchievementChecker.php",
+		"/C/wamp/www/BattleDone.php",
+		"/C/wamp/www/Database Structure.txt",
+		"/C/wamp/www/Stats/UpdateStatsOnEvent.php",
+		"/C/wamp/www/Stats/Achievement.php",
+		"/C/wamp/www/utility/DatabaseStructs.php",
+		"/C/wamp/www/Stats/GetAnonymousStatistic.php",
+		"/C/wamp/www/Stats/GetLifetimeLocationStat.php",
+		"/C/wamp/www/Stats/GetLocationStat.php",
+		"/C/wamp/www/Stats/GetStatistic.php",
+		"/C/wamp/www/Stats/GetLifetimeStat.php",
+		"/C/wamp/www/test.php",
+		"/C/wamp/www/utility/CreateArenaByHand.php",
+		"/C/wamp/www/utility/CreateAccountByHand.php",
+		"/C/wamp/www/utility/SetupNewDatabase.php",
+		"/C/wamp/www/CreateAccount.php",
+		"/C/wamp/www/Login.php",
+		"/C/wamp/www/FindOpponent.php",
+		"/C/wamp/www/utility/DeleteUser.php",
 		"/C/Users/wgraban/Desktop/PeeVeePee/Assets/Interface/Scripts/Buttons/Battle_Done.cs",
 		"/C/Users/wgraban/Desktop/PeeVeePee/Assets/Interface/Scripts/Buttons/Achievements_Previous.cs",
 		"/C/Users/wgraban/Desktop/PeeVeePee/Assets/Interface/Scripts/GPS/GPSTest.cs",
@@ -136,13 +151,14 @@
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 27.0
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
+			""
 		]
 	},
 	"find_state":
@@ -150,6 +166,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"UpdateUserStats",
 			");\n",
 			"(\"\\$",
 			";\n"
@@ -170,7 +187,7 @@
 	"groups":
 	[
 		{
-			"selected": 7,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -179,15 +196,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1826,
+						"buffer_size": 1307,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								887,
-								887
+								936,
+								936
 							]
 						],
 						"settings":
@@ -197,27 +214,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 192.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "Stats/AchievementChecker.php",
+					"file": "CreateArena.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6253,
+						"buffer_size": 922,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5775,
-								5775
+								26,
+								26
 							]
 						],
 						"settings":
@@ -226,10 +243,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2052.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -238,102 +255,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2392,
+						"buffer_size": 2450,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								750,
-								750
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": -0.0,
-						"translation.y": 270.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "utility/DeleteUser.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 78,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								75,
-								75
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "utility/CreateArenaByHand.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 915,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								631,
-								631
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "Stats/GetLifetimeLocationStat.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1247,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								291,
-								291
+								923,
+								923
 							]
 						],
 						"settings":
@@ -350,50 +280,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "Stats/GetLifetimeStat.php",
+					"buffer": 3,
+					"file": "utility/SetupNewDatabase.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 923,
+						"buffer_size": 1338,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								244,
-								244
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "utility/CreateAccountByHand.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2089,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								886,
-								886
+								644,
+								644
 							]
 						],
 						"settings":
@@ -403,27 +303,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": -0.0,
-						"translation.y": 162.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 4,
 					"file": "BattleDone.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5789,
+						"buffer_size": 8241,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5100,
-								5100
+								7292,
+								7292
 							]
 						],
 						"settings":
@@ -433,10 +333,40 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2376.0,
+						"translation.y": 3895.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "Database Structure.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 738,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								648,
+								648
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -444,11 +374,11 @@
 	],
 	"incremental_find":
 	{
-		"height": 23.0
+		"height": 27.0
 	},
 	"input":
 	{
-		"height": 0.0
+		"height": 35.0
 	},
 	"layout":
 	{
@@ -480,7 +410,7 @@
 	"project": "pvphp.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 50.0
 	},
 	"save_all_on_build": true,
 	"select_file":
