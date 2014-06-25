@@ -1,8 +1,8 @@
 <?php
-	
-	function CheckAchievements($connection, $id, $length, $loc, $opId)
+
+	function CheckAchievements(&$connection, $id, $length, $loc, $opId)
 	{
-		$collection = $connection->selectCollection("peeveepee", "users");
+		$collection = $connection->selectCollection("peeveepee", "user_stats");
 
 		// Begin the return XmlDoc
 		echo "<r>";
@@ -18,72 +18,57 @@
 		//	if this is wise or not.
 
 		// This will get much bigger eventually, but I only need to check these two stats for achievements right now
-		$lifetimeStats = $collection->findOne(array("_id" => $id), array("stats.lifetime_highest_length" => true, "_id" => false));
-
+		//$lifetimeStats = $collection->findOne(array("_id" => $id), array("stats.lifetime_longest" => true, "_id" => false));
+		$stats = $collection->findOne(array('_id' => $id), array('lifetime_longest' => true, '_id' => false));
 		$valuesToSet = array();
 
 		/////////////////////////////////////
 		////////// LIFETIME LONGEST
-		if($lifetimeStats['stats']['lifetime_highest_length'] < $length)
+		//if($lifetimeStats['stats']['lifetime_highest_length'] < $length)
+		if($stats['lifetime_longest'] < $length)
 		{
 			echo "<ach><tit>ach_lifeLonTit</tit><msg>";
 
-			$valuesToSet['stats.lifetime_highest_length'] = $length;
+			$valuesToSet['lifetime_longest'] = $length;
 
+			// Swap to the achievements collection
+			$collection = $connection->selectCollection('peeveepee', 'achievements');
+
+			// Check to see if they have gotten this achievement before
 			$achievementChecker = $collection->findOne(
-				array("_id" => $id, "achievements.lifetime.name" => "Lifetime Longest"),
-				array("achievements.lifetime.$" => true, "_id" => false)
+				array('owner_id' => $id, 'name' => 'Lifetime Longest'),
+				array('owner_id' => false, '_id' => false, 'name' => false)
 			);
-
-			//var_dump($achivementChecker);
 
 			// Check to see if it was the first time they got this achievement
 			if($achievementChecker == null)
 			{
 				echo "ach_first</msg>";
-
-				$data = array(
-					"name" => "Lifetime Longest",
-					"length" => $length,
-					"ts" => new MongoDate(),
-					"loc" => $loc
-				);
 				
-				$collection->update(array("_id" => $id), array('$push' => array("achievements.lifetime" => $data)));
+				$collection->insert(GetAchievementDoc($id, $loc, $length, 'Lifetime Longest'));
 			}
 			else
 			{
-				// SNEAKY: Since findOne only returns a single doc, i know that the timestamp i'm looking for is at index 0
-				$date = $achievementChecker['achievements']['lifetime'][0]['ts']->sec;
+				$date = $achievementChecker['timestamp']->sec;
 
-				/*
-				echo "On " . date('l', $date) . " the " . date('jS', $date) . " of " . date('F, Y', $date) . " you battled at " .
-					$achievementChecker['achievements']['lifetime'][0]['loc'] . " for " .
-					$achievementChecker['achievements']['lifetime'][0]['length'] . " seconds.  But today you have beat " .
-					"that score!  Congratulations!!</msg>";
-				*/
 				// I am going to have to shorten this as much as possible to lower data usage and allow localization
+				// ^ Victory
 				echo 'ach_lifeLon</msg>';
 				echo '<data>';
 				echo '<date>' . date('Y-M-d h:i:s', $date) . '</date>';
-				echo '<loc>' . $achievementChecker['achievements']['lifetime'][0]['loc'] . '</loc>';
-				echo '<len>' . $achievementChecker['achievements']['lifetime'][0]['length'] . '</len>';
+				echo '<loc>' . $achievementChecker['loc_name'] . '</loc>';
+				echo '<len>' . $achievementChecker['length'] . '</len>';
 				echo '</data>';
 
-				$newValues = array(
-					"name" => "Lifetime Longest",
-					"length" => $length,
-					"ts" => new MongoDate(),
-					"loc" => $loc
+				$collection->update(
+					array('owner_id' => $id, 'name' => 'Lifetime Longest'),
+					GetAchievementDoc($id, $loc, $length, 'Lifetime Longest')
 				);
-
-				// I think i'll need to update immediately so that the 'unknown index operator' works.
-				// TODO: Test ways to get around so many updates/findOnes
-				$collection->update(array("_id" => $id, "achievements.lifetime.name" => "Lifetime Longest"),
-				 array('$set' => array('achievements.lifetime.$' => $newValues)));
 			}
 
-			$collection->update(array("_id" => $id), array('$set' => array("stats.lifetime_highest_length" => $length)));
+			// Update the stats collection with the 
+			$collection = $connection->selectCollection('peeveepee', 'user_stats');
+			$collection->update(array('_id' => $id), array('$set' => array('lifetime_longest' => $length)));
 
 			echo "</ach>";
 		}
@@ -94,63 +79,55 @@
 		///////////////////////////////
 		///////////////////////////////
 
-		$locationStats = $collection->findOne(array("_id" => $id, "stats.location_stats.name" => $loc), array("_id" => false, "stats.location_stats.$.loc_highest_length" => true));
+		// Swap to location_stats
+		$collection = $connection->selectCollection('peeveepee', 'location_stats');
+		// Find the user's longest at this location
+		$locationStats = $collection->findOne(
+			array('owner_id' => $id, 'loc_name' => $loc), 
+			array('_id' => false, 'loc_longest' => true)
+		);
 
-		if($locationStats['stats']['location_stats'][0]['loc_highest_length'] < $length)
+		if($locationStats['loc_longest'] < $length)
 		{
 			echo "<ach><tit>ach_locLonTit</tit><msg>";
 
+			$collection = $connection->selectCollection('peeveepee', 'achievements');
+
+			// Try to find the document
 			$achievementChecker = $collection->findOne(
-				array("_id" => $id, "achievements.locations.loc" => $loc, "achievements.locations.name" => "Location Longest"), 
-				array("_id" => false, "achievements.locations.$" => true)
+				array('owner_id' => $id, 'name' => 'Location Longest', 'loc_name' => $loc),
+				array('_id' => false, 'length' => true, 'timestamp' => true)
 			);
 
 			if($achievementChecker == null)
 			{
 				echo "ach_locFirst</msg>";
 
-				$data = array(
-					"name" => "Location Longest",
-					"ts" => new MongoDate(),
-					"loc" => $loc,
-					"length" => $length
-				);
-
-				$collection->update(array("_id" => $id), array('$push' => array("achievements.locations" => $data)));
+				$collection->insert(GetAchievementDoc($id, $loc, $length, 'Location Longest'));
 			}
 			else
 			{
-
-				/*
-				echo "On " . date('l', $date) . " the " . date('jS', $date) . " of " . date('F, Y', $date) . " you battled " .
-					"here for " . $achievementChecker['achievements']['locations'][0]['length'] . " seconds.  But today you have beat " .
-					"that score!  Congratulations!!</msg>";
-				*/
 				echo 'ach_locLon</msg>';
-				$date = $achievementChecker['achievements']['locations'][0]['ts']->sec;
+				$date = $achievementChecker['timestamp']->sec;
 
 				echo '<data>';
 				echo '<date>' . date('Y-M-d h:i:s', $date) . '</date>';
-				echo '<len>' . $achievementChecker['achievements']['locations'][0]['length'] . '</len>';
+				echo '<len>' . $achievementChecker['length'] . '</len>';
 				echo '</data>';
 				
-
-				$data = array(
-					"name" => "Location Longest",
-					"loc" => $loc,
-					"ts" => new MongoDate(),
-					"length" => $length
-				);
-
+				// Update the achievement
 				$collection->update(
-					array("_id" => $id, "achievements.locations.name" => "Location Longest", "achievements.locations.loc" => $loc),
-					array('$set' => array("achievements.locations.$" => $data))
+					array('owner_id' => $id, 'loc_name' => $loc),
+					GetAchievementDoc($id, $loc, $length, 'Location Longest')
 				);
 			}
 
+			// Select LocStats
+			$collection = $connection->selectCollection('peeveepee', 'location_stats');
+			// Update the user's locStats with the new longest
 			$collection->update(
-				array("_id" => $id, "stats.location_stats.name" => $loc),
-				 array('$set' => array('stats.location_stats.$.loc_highest_length' => $length))
+				array('owner_id' => $id, 'loc_name' => $loc),
+				array('loc_longest' => $length)
 			);
 
 			echo "</ach>";

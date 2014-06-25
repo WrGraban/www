@@ -1,7 +1,7 @@
 <?php
     
     include('Stats/AchievementChecker.php');
-    include('./utility/DocumentMaker');
+    include('./utility/DocumentMaker.php');
 
 	$connection = new MongoClient();
 
@@ -70,7 +70,7 @@
         array(
             'owner_id' => $id,
             'loc_name' => $loc_name
-        );
+        ),
 
         // fields to return
         array('_id' => true)
@@ -168,7 +168,7 @@
     */
 
     // Update user stats
-    $collection = $connection->selectCollection('peeveepee', 'stats');
+    $collection = $connection->selectCollection('peeveepee', 'user_stats');
     $collection->update(array('_id' => $id), array('$inc' => $userStatsToMod));
 
     // Update the location stats associated with the user
@@ -219,23 +219,19 @@
     */
     $collection = $connection->selectCollection('peeveepee', 'location_unique_gladiators');
 
-    $cursor = $collection->find(array('user_id' => $id, 'loc_name' => $loc_name));
+    $result = $collection->findOne(array('user_id' => $id, 'loc_name' => $loc_name), array('_id' => true));
 
-    //////////////////////////////////////
-    //////////////////////////////////////
-    //////////////////////////////////////
-    //////////////////////////////////////
-    // This is where I stopped!
-
-    if($cursor->count() == 0)
+    if($result == null)
     {
+        // This is the first time this user has battled in this arena
+        $collection->insert(GetUniqueGladiatorsDoc($id, $loc_name));
 
+        // Change the collection!  (Should I have multiple variables, one for each collection?  Speed v. Memory)
+        $collection = $connection->selectCollection('peeveepee', 'locations');
+        // Update the unique gladiator count
+        $collection->update(array('name' => $loc_name), array('$inc' => array('unique_gladiator_count' => 1)));
     }
-    else
-    {
-
-    }
-
+    /*
     // Loop through the unique_gladiators array to see if this one is new
     foreach($locDoc['unique_gladiators'] as $name)
     {
@@ -252,6 +248,7 @@
         // Increment ugc
         $collection->update(array("name" => $loc_name), array('$inc' => array("unique_gladiator_count" => 1)));
     }
+    */
 
     /////////////////////////
     // Check Achievements

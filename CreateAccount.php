@@ -27,7 +27,7 @@
         $collection->insert(GetUserDoc($newID, $tag, $email, $hashedPass));
 
         // Add the stats for the specific user
-        $collection = $connection->selectCollection('peeveepee', 'stats');
+        $collection = $connection->selectCollection('peeveepee', 'user_stats');
         $collection->insert(GetStatsDoc($newID));
         
         BuildResponseXml("S", null);

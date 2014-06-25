@@ -43,6 +43,7 @@
 
     $connection->close();
 
+    /*
     // This function can take two arrays
     function BuildResponseXML($msg, $dataName, $dataValue)
     {
@@ -78,4 +79,5 @@
 	    	echo '</r>';
     	}
     }
+    */
 ?>

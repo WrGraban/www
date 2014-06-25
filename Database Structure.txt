@@ -6,11 +6,11 @@ users
     email
     pass
     
-stats
+user_stats
     _id // same as the user ID
     lifetime_event_count
     lifetime_event_length
-    lifetime_highest_length
+    lifetime_longest
     lifetime_wins
     lifetime_losses
     lifetime_ties
@@ -28,7 +28,7 @@ location_stats
     owner_id
     loc_name
     loc_event_count
-    loc_highest_length
+    loc_longest
     loc_losses
     loc_wins
     loc_ties
@@ -52,3 +52,11 @@ events
     length
     loc_name
     tag
+
+achievements
+    _id
+    owner_id
+    name
+    timestamp
+    loc_name
+    length

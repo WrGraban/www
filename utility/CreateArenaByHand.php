@@ -1,5 +1,5 @@
 <?php
-
+	include('DocumentMaker.php');
 	$connection = new MongoClient();
     $collection = $connection->selectCollection("peeveepee", "locations");
 
@@ -18,24 +18,7 @@
 
 	if($result == null)
 	{
-		// Insert into locations
-		$doc = array(
-			"name" => $arena_name,
-			"date_created" => date("Y-m-d"),
-			"created_by" => $uid,
-			"total_event_count" => 0,
-			"total_length" => 0,
-			"unique_gladiators" => array(),
-			"unique_gladiator_count" => 0,
-			"loc" => array(
-				"lat" => $lat,
-				"lon" => $lon
-			)
-		);
-
-
-		$collection->insert($doc);
-		//echo $doc['_id'];
+		$collection->insert(GetLocationDoc($uid, $arena_name, $lat, $lon));
 		echo "<r><res>S</res></r>";
 	}
 	else

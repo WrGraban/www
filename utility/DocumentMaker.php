@@ -36,7 +36,7 @@
 			"_id" => $user_id,
 			"lifetime_event_count" => 0,
 			"lifetime_event_length" => 0,
-			"lifetime_highest_length" => 0,
+			"lifetime_longest" => 0,
 			"lifetime_wins" => 0,
 			"lifetime_losses" => 0,
 			"lifetime_ties" => 0
@@ -51,7 +51,7 @@
 			'owner_id' => $user_id,
 			'loc_id' => $loc_id,
 			'loc_event_count' => 0,
-			'loc_highest_length' => 0,
+			'loc_longest' => 0,
 			'loc_losses' => 0,
 			'loc_wins' => 0,
 			'loc_ties' => 0,
@@ -86,7 +86,7 @@
 	function GetEventDoc($uid, $loc_name, $length, $tag)
 	{
 		$event = array(
-			"user_id" => $id,
+			"user_id" => $uid,
 	        "timestamp" => new MongoDate(),
 	        "loc_name" => $loc_name,
 	        "length" => $length,
@@ -94,5 +94,18 @@
 		);
 
 		return $event;
+	}
+
+	function GetAchievementDoc($user_id, $loc_name, $length, $achievement_name)
+	{
+		$achievement = array(
+			'owner_id' => $user_id,
+			"name" => $achievement_name,
+			"length" => $length,
+			"timestamp" => new MongoDate(),
+			"loc_name" => $loc_name
+		);
+
+		return $achievement;
 	}
 ?>

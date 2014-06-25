@@ -11,7 +11,7 @@
 
 	$collection = $connection->selectCollection("peeveepee", "events");
 
-    $curson = null;
+    $cursor = null;
 
 	// Next we'll have to get the opponent data
     // We must find a different player if the match is not anonymous

@@ -1,22 +1,28 @@
 <?php
     include('./Stats/GetLifetimeLocationStat.php');
+    include('./utility/DocumentMaker.php');
     //phpinfo();
     //echo $connection;
     
     $connection = new MongoClient();
-    $collection = $connection->selectCollection("peeveepee", "users");
+    $collection = $connection->selectCollection("peeveepee", "user_stats");
+    $length = 7.1;
+    $id = 'tom';
+    $loc = 'Narnia';
+    $opId = 'dawg';
 
-    $statArray = [
-            "statAnon_totalEvents",
-            "statAnon_totalLength",
-            "statAnon_win",
-            "statAnon_los",
-            "statAnon_tie"
-        ];
+    $stats = $collection->findOne(array('_id' => $id), array('lifetime_longest' => true, '_id' => false));
+        $valuesToSet = array();
 
-    $stat = $statArray[rand(0, count($statArray) - 1)];
-    echo BuildLifeLocationStatXML("statLiLo_tl", "zesty", "Narnia", $connection);
+    $collection = $connection->selectCollection("peeveepee", "achievements");
+    //$collection->insert(GetAchievementDoc($id, $loc, $length, 'Lifetime Longest'));
+    $collection->update(
+                array('owner_id' => $id, 'name' => 'Lifetime Longest'),
+                GetAchievementDoc($id, $loc, $length, 'Lifetime Longest')
+            );
+        //var_dump($achievementChecker);
 
+    echo 'done';
     $connection->close();
     
 

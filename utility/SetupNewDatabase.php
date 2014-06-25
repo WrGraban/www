@@ -22,7 +22,7 @@
         $collection->insert(GetUserDoc($newID, $tag, $email, $hashedPass));
 
         // Insert his stats
-        $collection = $connection->selectCollection('peeveepee', 'stats');
+        $collection = $connection->selectCollection('peeveepee', 'user_stats');
         $collection->insert(GetStatsDoc($newID));
     }
     
