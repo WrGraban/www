@@ -2,9 +2,9 @@
 	include('GetAnonymousStatistic.php');
 	include('GetLifetimeStat.php');
 	include('GetLifetimeLocationStat.php');
+    include('GetLocationStat.php');
 
 	$connection = new MongoClient();
-    $collection = $connection->selectCollection('peeveepee', 'users');
 
     $id = $_POST['id'];
     $loc = $_POST['loc'];
@@ -14,7 +14,7 @@
 	/// 1	-	Lifetime
 	/// 2	-	LifetimeLocation
 	/// 3	-	Location
-    $statType = '2';//$_POST['type'];
+    $statType = $_POST['type'];
     //////////////////
     $stat = $_POST['stat'];
 
@@ -37,6 +37,12 @@
     case '2':
     	$retXml = BuildLifeLocationStatXML($stat, $id, $loc, $connection);
     	break;
+    case '3':
+        $retXml = BuildLocStatXML($stat, $id, $loc, $connection);
+        break;
+    default:
+        $retXml = "<r>FAILURE</r>";
+        break;
     }
 
     echo $retXml;

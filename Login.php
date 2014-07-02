@@ -19,7 +19,7 @@
     
     if($doc == null)
     {
-        BuildResponseXml("F", "err_noId", null);
+        BuildResponseXml("F", "err_noId", null, null);
     }
     else if($doc['pass'] == $pass)
     {
@@ -27,7 +27,7 @@
     }
     else
     {
-        BuildResponseXml("F", "err_badPass", null);
+        BuildResponseXml("F", "err_badPass", null, null);
     }
     
     $connection->close();

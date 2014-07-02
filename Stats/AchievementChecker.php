@@ -127,7 +127,7 @@
 			// Update the user's locStats with the new longest
 			$collection->update(
 				array('owner_id' => $id, 'loc_name' => $loc),
-				array('loc_longest' => $length)
+				array('$set' => array('loc_longest' => $length))
 			);
 
 			echo "</ach>";

@@ -14,12 +14,13 @@
         return $user;
 	}
 
-	function GetLocationDoc($creator_id, $arena_name, $lat, $lon)
+	function GetLocationDoc($creator_id, $creator_tag, $arena_name, $lat, $lon)
 	{
 		$location = array(
 			"name" => $arena_name,
-			"date_created" => date("Y-m-d"),
-			"created_by" => $creator_id,
+			"date_created" => new MongoDate(),
+			"creator_id" => $creator_id,
+			'creator_tag' => $creator_tag,
 			"total_event_count" => 0,
 			"total_length" => 0,
 			"unique_gladiator_count" => 0,
@@ -49,14 +50,13 @@
 	{
 		$locStats = array(
 			'owner_id' => $user_id,
-			'loc_id' => $loc_id,
+			'loc_name' => $loc_id,
 			'loc_event_count' => 0,
 			'loc_longest' => 0,
 			'loc_losses' => 0,
 			'loc_wins' => 0,
 			'loc_ties' => 0,
-			'loc_total_length' => 0,
-			'unique_gladiator_count' => 0
+			'loc_total_length' => 0
 		);
 
 		return $locStats;

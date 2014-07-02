@@ -1,4 +1,5 @@
 <?php
+    include('./utility/DocumentMaker.php');
 	$connection = new MongoClient();
 
 	// Find the id of the location so we can index into the events
@@ -8,6 +9,15 @@
 
     //$loc_name = $_GET['name'];
     //$user_id = $_GET['uid'];
+
+    // First things first, check to see if the location_stats document exists for this user
+    $collection = $connection->selectCollection('peeveepee', 'location_stats');
+    $doc = $collection->findOne(array('owner_id' => $user_id, 'loc_name' => $loc_name), array('_id' => true));
+
+    if($doc == null)
+    {
+        $collection->insert(GetLocationStatsDoc($user_id, $loc_name));
+    } 
 
 	$collection = $connection->selectCollection("peeveepee", "events");
 
@@ -54,7 +64,7 @@
     }
 
     $opponentEventDoc = $cursor->getNext();
-    
+
     // Check the returned object
     if($opponentEventDoc != null)
     {

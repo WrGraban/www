@@ -5,24 +5,17 @@
     //echo $connection;
     
     $connection = new MongoClient();
-    $collection = $connection->selectCollection("peeveepee", "user_stats");
-    $length = 7.1;
-    $id = 'tom';
-    $loc = 'Narnia';
-    $opId = 'dawg';
+    $collection = $connection->selectCollection("peeveepee", "locations");
 
-    $stats = $collection->findOne(array('_id' => $id), array('lifetime_longest' => true, '_id' => false));
-        $valuesToSet = array();
+    $doc = $collection->findOne(array('name' => 'Narnia'), array('_id' => false, 'date_created' => true));
+    $date = $doc['date_created'];
+    $now = new MongoDate();
+    echo $now->sec;
+    echo '<br/>' . $doc['date_created']->sec;
+    $diff = $now->sec - $doc['date_created']->sec;
 
-    $collection = $connection->selectCollection("peeveepee", "achievements");
-    //$collection->insert(GetAchievementDoc($id, $loc, $length, 'Lifetime Longest'));
-    $collection->update(
-                array('owner_id' => $id, 'name' => 'Lifetime Longest'),
-                GetAchievementDoc($id, $loc, $length, 'Lifetime Longest')
-            );
-        //var_dump($achievementChecker);
+    var_dump($diff);
 
-    echo 'done';
     $connection->close();
     
 

@@ -33,10 +33,11 @@
 
     $arena_name = "The Void";
 	$uid = "zesty";
+    $tag = "Zesty";
 	$lat = 23.806;
 	$lon = 11.288;
 
-	$collection->insert(GetLocationDoc($uid, $arena_name, $lat, $lon));
+	$collection->insert(GetLocationDoc($uid, $tag, $arena_name, $lat, $lon));
 
 	////////
     // Create "Narnia"
@@ -45,7 +46,9 @@
     $lat = 11.35;
     $lon = 142.2;
 
-	$collection->insert(GetLocationDoc($uid, $arena_name, $lat, $lon));
+	$collection->insert(GetLocationDoc($uid, $tag, $arena_name, $lat, $lon));
+
+    echo 'Complete';
     
     $connection->close();
 
