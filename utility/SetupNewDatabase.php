@@ -1,7 +1,8 @@
 <?php
     include('DocumentMaker.php');
+    include('ServerLocation.php');
 
-	$connection = new MongoClient();
+	$connection = new MongoClient(GetServerAddress());
 
     // TODO: Check for reserved names and let the user know
     

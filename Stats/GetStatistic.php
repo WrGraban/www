@@ -3,8 +3,10 @@
 	include('GetLifetimeStat.php');
 	include('GetLifetimeLocationStat.php');
     include('GetLocationStat.php');
+    include('ServerLocation.php');
 
-	$connection = new MongoClient();
+
+	$connection = new MongoClient(GetServerAddress());
 
     $id = $_POST['id'];
     $loc = $_POST['loc'];
