@@ -1,0 +1,64 @@
+users
+    _id
+    tag
+    account_type
+    date_created
+    email
+    pass
+    
+user_stats
+    _id // same as the user ID
+    lifetime_event_count
+    lifetime_event_length
+    lifetime_longest
+    lifetime_wins
+    lifetime_losses
+    lifetime_ties
+    
+locations
+    name
+    date_created
+    created_by
+    total_event_count
+    total_length
+    unique_gladiator_count
+    
+location_stats
+    _id
+    owner_id
+    loc_name
+    loc_event_count
+    loc_longest
+    loc_losses
+    loc_wins
+    loc_ties
+    loc_total_length
+    
+opponent_count
+    _id
+    owner_id
+    opponent_id
+    count
+
+location_unique_gladiators
+    _id
+    loc_name
+    user_id
+    
+events
+    _id
+    timestamp
+    user_id
+    length
+    loc_name
+    tag
+    lat
+    lon
+
+achievements
+    _id
+    owner_id
+    name
+    timestamp
+    loc_name
+    length

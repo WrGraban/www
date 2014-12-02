@@ -1,7 +1,8 @@
 <?php
     include('./utility/DocumentMaker.php');
+    include('./utility/ServerData.php');
 
-    $connection = new MongoClient();
+    $connection = new MongoClient($ConnectionString);
     
     if($connection == null)
     {

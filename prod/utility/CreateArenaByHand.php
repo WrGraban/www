@@ -1,27 +1,29 @@
 <?php
-	include('./utility/DocumentMaker.php');
-
+	include('DocumentMaker.php');
 	$connection = new MongoClient();
     $collection = $connection->selectCollection("peeveepee", "locations");
 
+/*
 	$arena_name = $_POST['arena_name'];
 	$uid = $_POST['uid'];
-	$tag = $_POST['tag'];
 	$lat = floatval($_POST['lat']);
 	$lon = floatval($_POST['lon']);
+*/
+	$arena_name = "The Void";
+	$uid = "zesty";
+	$lat = 23.806;
+	$lon = 11.288;
 
 	$result = $collection->findOne(array("name" => $arena_name));
 
 	if($result == null)
 	{
-		// Insert the arena
-		$collection->insert(GetLocationDoc($uid, $tag, $arena_name, $lat, $lon));
-
+		$collection->insert(GetLocationDoc($uid, $arena_name, $lat, $lon));
 		echo "<r><res>S</res></r>";
 	}
 	else
 	{
-		echo "<r><res>F</res><msg>err_arenaExists</msg></r>";
+		echo "<r><res>F</res><msg>err_arenaExists</msg></root>";
 	}
 
 	$connection->close();

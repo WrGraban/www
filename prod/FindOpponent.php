@@ -1,6 +1,8 @@
 <?php
     include('./utility/DocumentMaker.php');
-	$connection = new MongoClient();
+    include('./utility/ServerData.php');
+    
+	$connection = new MongoClient($ConnectionString);
 
 	// Find the id of the location so we can index into the events
 	$loc_name = $_POST['name'];

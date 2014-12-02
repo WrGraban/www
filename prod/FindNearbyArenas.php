@@ -1,6 +1,7 @@
 <?php
+    include('./utility/ServerData.php');
 
-	$connection = new MongoClient();
+	$connection = new MongoClient($ConnectionString);
     $collection = $connection->selectCollection("peeveepee", "locations");
 
     // HACK!

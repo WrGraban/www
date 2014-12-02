@@ -1,12 +1,13 @@
 <?php
-    include('DocumentMaker.php');
+    require('DocumentMaker.php');
+    require('ServerData.php');
 
-	$connection = new MongoClient();
+    $connection = new MongoClient($ConnectionString);
 
     // TODO: Check for reserved names and let the user know
     
     $collection = $connection->selectCollection("peeveepee", "users");
-    
+
     ////////
     // Create anonymous user
     ////////

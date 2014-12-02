@@ -157,6 +157,4 @@
 
 		return false;
 	}
-
-
 ?>

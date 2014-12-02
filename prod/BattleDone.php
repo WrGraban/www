@@ -2,8 +2,9 @@
     
     include('Stats/AchievementChecker.php');
     include('./utility/DocumentMaker.php');
+	include('./utility/ServerData.php');
 
-	$connection = new MongoClient();
+    $connection = new MongoClient($ConnectionString);
 
     ////////////////
     // POST data
@@ -25,9 +26,7 @@
     $hasOpponent = true;
 
     if($op_id == "null")
-    {
         $hasOpponent = false;
-    }
 
 
     ////////////////
@@ -57,9 +56,7 @@
     );
 
     if($locExists == null)
-    {
         $collection->insert(GetLocationStatsDoc($id, $loc_name));
-    }
 
     ////////////////
     // User Stats
@@ -112,13 +109,9 @@
 
         // Check for the special cases of 'new opponent'
         if($opponentFound == null)
-        {
             $collection->insert(GetOpponentCountDoc($id, $op_id));
-        }
         else
-        {
             $collection->update(array('owner_id' => $id, 'opponent_id' => $op_id), array('$inc' => array('count' => 1)));
-        }
     }
 
     ////////////////
@@ -137,12 +130,12 @@
 
     $collection = $connection->selectCollection('peeveepee', 'location_unique_gladiators');
 
-    $result = $collection->findOne(array('user_id' => $id, 'loc_name' => $loc_name), array('_id' => true));
+    $result = $collection->findOne(array('user_id' => $id, 'loc_id' => $loc_name), array('_id' => true));
 
     if($result == null)
     {
-        // This is the first time this user has battled in this arena
-        $collection->insert(GetUniqueGladiatorsDoc($id, $loc_name));
+        // This is the first time this  has battled in this arena
+        $collection->insert(GetUniqueGladiatorsDoc($loc_name, $id));
 
         // Change the collection!  (Should I have multiple variables, one for each collection?  Speed v. Memory)
         $collection = $connection->selectCollection('peeveepee', 'locations');
@@ -154,13 +147,9 @@
     /////////////////////////
     // Check Achievements
     if($isAnonBattle == "0")
-    {
         CheckAchievements($connection, $id, $length, $loc_name, $op_id);
-    }
     else
-    {
         echo "<r></r>"; // No need to return an achievement array!  They're anonymous.
-    }
 
     // Finally close the connection
     $connection->close();
