@@ -1,7 +1,8 @@
 <?php
     include('DocumentMaker.php');
+    include('ServerLocation.php');
 
-    $connection = new MongoClient();
+    $connection = new MongoClient(GetServerAddress());
     
     if($connection == null)
     {

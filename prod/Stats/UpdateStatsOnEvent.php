@@ -13,7 +13,7 @@
 			"stats.location_stats." . $loc_name . ".loc_event_count" => 1,
 			"stats.location_stats." . $loc_name . ".loc_wins" => 0,
 			"stats.location_stats." . $loc_name . ".loc_losses" => 0,
-			"stats.location_stats." . $loc_name . ".loc_ties" => 0,
+			"stats.location_stats." . $loc_name . ".loc_ties" => 0
 		);
 	    
 	    // Only used if the player gets a new high score

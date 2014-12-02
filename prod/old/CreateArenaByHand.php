@@ -1,6 +1,8 @@
 <?php
 	include('DocumentMaker.php');
-	$connection = new MongoClient();
+	include('ServerLocation.php');
+	
+	$connection = new MongoClient(GetServerAddress());
     $collection = $connection->selectCollection("peeveepee", "locations");
 
 /*
