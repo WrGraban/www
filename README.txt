@@ -1,1 +1,1 @@
-Keep kicking ass!  It's coming together.  :D
+Keep kicking butt!  It's coming together.  :D
